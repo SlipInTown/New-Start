@@ -7,16 +7,22 @@ public class MainMenu : MonoBehaviour
     public Color myColor;
     void OnGUI()
     {
-        myColor = RGBSlider(new Rect(10, 10, 200, 20), myColor);
+        myColor = RGBSlider(new Rect(10, Screen.height - 80, 200, 20), myColor);
     }
     Color RGBSlider(Rect screenRect, Color rgb)
     {
         rgb.r = LabelSlider(screenRect, rgb.r, 1.0f, "Red");
+
         screenRect.y += 20;
         rgb.g = LabelSlider(screenRect, rgb.g, 1.0f, "Green");
+
         screenRect.y += 20;
         rgb.b = LabelSlider(screenRect, rgb.b, 1.0f, "Blue");
-        return rgb;
+
+        screenRect.y += 20;
+        rgb.a = LabelSlider(screenRect, rgb.a, 1.0f, "alpha");
+
+        return rgb; 
     }
     float LabelSlider(Rect screenRect, float sliderValue, float sliderMaxValue, string labelText)
     {

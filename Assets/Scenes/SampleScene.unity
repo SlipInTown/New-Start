@@ -246,7 +246,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!108 &705507994
 Light:
@@ -762,11 +762,11 @@ GameObject:
   - component: {fileID: 1339042518}
   - component: {fileID: 1339042520}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!114 &1339042518
 MonoBehaviour:
@@ -775,12 +775,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1339042517}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55284e2be91133643bef7a545d9804c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myColor: {r: 0, g: 0, b: 0, a: 0}
+  myColor: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0}
 --- !u!4 &1339042519
 Transform:
   m_ObjectHideFlags: 0
@@ -807,7 +807,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bacff59ae4060cd41bbb5c6c8d9ca385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeTime: 8
+  lifeTimeOfPlayer: 300
   sceneNumber: 0
 --- !u!1001 &1526272477
 PrefabInstance:
