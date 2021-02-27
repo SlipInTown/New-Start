@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainMenu : MonoBehaviour
+public class Sliders : MonoBehaviour
 {
     public Color myColor;
     void OnGUI()
