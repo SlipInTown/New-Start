@@ -34,12 +34,12 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         {
             var distanceOfRay = 100;
             var hitDirection = (target.transform.position - transform.position).normalized;
-            if (Physics.Raycast(transform.position, hitDirection, out hit, distanceOfRay))
+            if (Physics.Raycast(transform.position, hitDirection, out hit))
             {
                 if (hit.collider.CompareTag(playerTag))
                 {
-                    Debug.Log(hit.point.sqrMagnitude);
-                    if (hit.point.magnitude > 2)
+                    Debug.Log(hit.distance);
+                    if (hit.distance > 10)
                     {
                         animatorAI.SetBool("Run", true);
                         animatorAI.SetBool("Walk", false);
@@ -55,9 +55,9 @@ namespace UnityStandardAssets.Characters.ThirdPerson
                     animatorAI.SetBool("Run", false);
                     animatorAI.SetBool("Walk", false);
                 }
-                
+                Debug.DrawRay(transform.position, hitDirection * distanceOfRay, Color.red);
             }
-            Debug.DrawRay(transform.position, hitDirection * distanceOfRay, Color.red);
+            
         }
 
     }
