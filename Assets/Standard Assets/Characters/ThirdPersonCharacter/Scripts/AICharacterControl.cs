@@ -10,6 +10,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         public UnityEngine.AI.NavMeshAgent agent { get; private set; }             // the navmesh agent required for the path finding
         public ThirdPersonCharacter character { get; private set; } // the character we are controlling
         public Transform target;                                    // target to aim for
+        [SerializeField] private Animator animatorAI;
+        [SerializeField] private string playerTag = "Player";
+        private RaycastHit hit;
+        
 
 
         private void Start()
@@ -17,27 +21,44 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             // get the components on the object we need ( should not be null due to require component so no need to check )
             agent = GetComponentInChildren<UnityEngine.AI.NavMeshAgent>();
             character = GetComponent<ThirdPersonCharacter>();
+            animatorAI = GetComponent<Animator>();
 
-	        agent.updateRotation = false;
+
+            agent.updateRotation = false;
 	        agent.updatePosition = true;
+            animatorAI.applyRootMotion = true;
         }
 
 
         private void Update()
         {
-            if (target != null)
-                agent.SetDestination(target.position);
-
-            if (agent.remainingDistance > agent.stoppingDistance)
-                character.Move(agent.desiredVelocity, false, false);
-            else
-                character.Move(Vector3.zero, false, false);
+            var distanceOfRay = 100;
+            var hitDirection = (target.transform.position - transform.position).normalized;
+            if (Physics.Raycast(transform.position, hitDirection, out hit, distanceOfRay))
+            {
+                if (hit.collider.CompareTag(playerTag))
+                {
+                    Debug.Log(hit.point.sqrMagnitude);
+                    if (hit.point.magnitude > 2)
+                    {
+                        animatorAI.SetBool("Run", true);
+                        animatorAI.SetBool("Walk", false);
+                    }
+                    else
+                    {
+                        animatorAI.SetBool("Run", false);
+                        animatorAI.SetBool("Walk", true);
+                    }
+                }
+                else
+                {
+                    animatorAI.SetBool("Run", false);
+                    animatorAI.SetBool("Walk", false);
+                }
+                
+            }
+            Debug.DrawRay(transform.position, hitDirection * distanceOfRay, Color.red);
         }
 
-
-        public void SetTarget(Transform target)
-        {
-            this.target = target;
-        }
     }
 }
