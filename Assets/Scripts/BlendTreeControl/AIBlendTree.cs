@@ -29,13 +29,13 @@ namespace UnityStandardAssets.Characters.ThirdPerson
                 {
                     if (hit.distance < 10)
                     {
-                        blend += (Time.deltaTime * 0.25f);
-                        animatorAI.SetFloat("Walk", Mathf.Clamp(blend, 0f, 1f));
+                        blend = Mathf.Clamp(blend + (Time.deltaTime * 0.25f), 0f, 1f);
+                        animatorAI.SetFloat("Walk", blend);
                     }
                     else
                     {
-                        blend -= (Time.deltaTime * 0.25f);
-                        animatorAI.SetFloat("Walk", Mathf.Clamp(blend, 0f, 1f));
+                        blend = Mathf.Clamp(blend - (Time.deltaTime * 0.25f), 0f, 1f);
+                        animatorAI.SetFloat("Walk", blend);
                     }
                 }
                 
