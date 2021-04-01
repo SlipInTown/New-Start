@@ -1,64 +1,79 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
-public class IKAnimation : MonoBehaviour
+namespace AlexSpace
 {
-    [SerializeField] private Animator animatorGO;
-    [SerializeField] private Transform LookObj;
-    [SerializeField] private Transform HandsObj;
-
-    [SerializeField] private Transform rightFoot;
-    [SerializeField] private Transform leftFoot;
-
-    [SerializeField, Range(0f, 1f)] private float handsWeight = 1;
-    [SerializeField, Range(0f, 1f)] private float lookWeight = 1;
-    [SerializeField] bool ikActive;
-    private RaycastHit rayHit;
-    private void OnAnimatorIK(int layerIndex)
+    [RequireComponent(typeof(Animator))]
+    public sealed class IKAnimation : MonoBehaviour
     {
-        if (Physics.Raycast(transform.position + Vector3.up, transform.forward, out rayHit,2f))
+        [SerializeField] private Animator _animatorGO;
+        [SerializeField] private Transform _LookObj;
+        [SerializeField] private Transform _HandsObj;
+
+        [SerializeField] private Transform _rightFoot;
+        [SerializeField] private Transform _leftFoot;
+
+        [SerializeField, Range(0f, 1f)] private float _handsWeight = 1;
+        [SerializeField, Range(0f, 1f)] private float _lookWeight = 1;
+        [SerializeField] bool ikActive;
+        private RaycastHit rayHit;
+
+        private void Start()
         {
-            handsWeight = 1;
-            LookObj = HandsObj = rayHit.transform;
-        }
-        if (ikActive)
-        {
-            if (HandsObj)
+            if (!_LookObj || !_HandsObj || !_rightFoot || !_leftFoot)
             {
-                SetWeight(handsWeight, AvatarIKGoal.LeftHand);
-                SetWeight(handsWeight,AvatarIKGoal.RightHand);
-
-                SetIKPos(HandsObj.position, AvatarIKGoal.RightHand);
-                SetIKRot(HandsObj.rotation, AvatarIKGoal.RightHand);
-
-                SetIKPos(HandsObj.position, AvatarIKGoal.LeftHand);
-                SetIKRot(HandsObj.rotation, AvatarIKGoal.LeftHand);
+                throw new System.Exception("Не добавлен компонент тела");
             }
-            if (LookObj)
+            if (!_animatorGO)
             {
-                animatorGO.SetLookAtWeight(lookWeight);
-                animatorGO.SetLookAtPosition(LookObj.position);
+                throw new System.Exception("Не добавлен компонент аниматора");
             }
         }
-        else
+        private void OnAnimatorIK(int layerIndex)
         {
-            SetWeight(0, AvatarIKGoal.RightHand);
+            if (Physics.Raycast(transform.position + Vector3.up, transform.forward, out rayHit, 2f))
+            {
+                _handsWeight = 1;
+                _LookObj = _HandsObj = rayHit.transform;
+            }
+            if (ikActive)
+            {
+                if (_HandsObj)
+                {
+                    SetWeight(_handsWeight, AvatarIKGoal.LeftHand);
+                    SetWeight(_handsWeight, AvatarIKGoal.RightHand);
+
+                    SetIKPos(_HandsObj.position, AvatarIKGoal.RightHand);
+                    SetIKRot(_HandsObj.rotation, AvatarIKGoal.RightHand);
+
+                    SetIKPos(_HandsObj.position, AvatarIKGoal.LeftHand);
+                    SetIKRot(_HandsObj.rotation, AvatarIKGoal.LeftHand);
+                }
+                if (_LookObj)
+                {
+                    _animatorGO.SetLookAtWeight(_lookWeight);
+                    _animatorGO.SetLookAtPosition(_LookObj.position);
+                }
+            }
+            else
+            {
+                SetWeight(0, AvatarIKGoal.RightHand);
+            }
         }
-    }
 
-    private void SetIKPos(Vector3 position, AvatarIKGoal body)
-    {
-        animatorGO.SetIKPosition(body, position);
-    }
+        private void SetIKPos(Vector3 position, AvatarIKGoal body)
+        {
+            _animatorGO.SetIKPosition(body, position);
+        }
 
-    private void SetIKRot(Quaternion rotation, AvatarIKGoal body)
-    {
-        animatorGO.SetIKRotation(body, rotation);
-    }
+        private void SetIKRot(Quaternion rotation, AvatarIKGoal body)
+        {
+            _animatorGO.SetIKRotation(body, rotation);
+        }
 
-    private void SetWeight(float weight, AvatarIKGoal body)
-    {
-        animatorGO.SetIKPositionWeight(body, weight);
-        animatorGO.SetIKRotationWeight(body, weight);
+        private void SetWeight(float weight, AvatarIKGoal body)
+        {
+            _animatorGO.SetIKPositionWeight(body, weight);
+            _animatorGO.SetIKRotationWeight(body, weight);
+        }
     }
 }

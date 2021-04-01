@@ -5,13 +5,13 @@ namespace AlexSpace
 {
     public sealed class GoodBonus : MonoBehaviour, IBonus
     {
-        [SerializeField] private float buff = 2f;
-        private FirstPersonController link;
+        [SerializeField] private float _buffSpeed = 2f;
+        private FirstPersonController _linkController;
         public void Effect(Collider other)
         {
-            link = other.GetComponent<FirstPersonController>();
-            link.m_WalkSpeed += buff;
-            link.m_RunSpeed += buff * 2;
+            _linkController = other.GetComponent<FirstPersonController>();
+            _linkController.m_WalkSpeed += _buffSpeed;
+            _linkController.m_RunSpeed += _buffSpeed * 2;
         }
 
         private void OnTriggerEnter(Collider other)

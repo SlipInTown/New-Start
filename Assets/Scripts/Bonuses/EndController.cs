@@ -5,23 +5,23 @@ namespace AlexSpace
 {
     public class EndController
     {
-        static int count = 0;
-        static readonly int EndValue = 3;
-        static readonly string SceneName = "New Start";
+        static int _countOfLife = 0;
+        static readonly int _endValue = 3;
+        static readonly string _sceneName = "New Start";
         private static void CheckValue()
         {
-            if (count >= EndValue)
+            if (_countOfLife >= _endValue)
             {
-                count = 0;
-                SceneManager.LoadScene(SceneName);
+                _countOfLife = 0;
+                SceneManager.LoadScene(_sceneName);
             }
         }
 
         public static void AddValue()
         {
-            count++;
+            _countOfLife++;
             CheckValue();
-            Log($"У вас {count} очков, до победы {EndValue - count}");
+            Log($"У вас {_countOfLife} очков, до победы {_endValue - _countOfLife}");
         }
     }
 }

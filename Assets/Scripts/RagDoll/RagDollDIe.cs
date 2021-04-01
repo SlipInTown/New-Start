@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class RagDollDIe : MonoBehaviour
+public sealed class RagDollDIe : MonoBehaviour
 {
     [SerializeField] private Rigidbody[] rigidBodies;
     [SerializeField] private Collider[] colliders;
@@ -9,9 +9,21 @@ public class RagDollDIe : MonoBehaviour
     [SerializeField] private float lifeTime = 6f;
     private void Start()
     {
-        if (!animator) animator = GetComponent<Animator>();
-        if (rigidBodies.Length == 0) rigidBodies = GetComponentsInChildren<Rigidbody>();
-        if (colliders.Length == 0) colliders = GetComponentsInChildren<Collider>();
+        if (!animator)
+        {
+            throw new System.Exception("Не добавлен аниматор");
+        }
+
+        if (rigidBodies.Length == 0)
+        {
+            throw new System.Exception("Не добавлены RigidBodies");
+        }
+
+        if (colliders.Length == 0)
+        {
+            throw new System.Exception("Не добавлены коллайдеры");
+        }
+
         AliveMake();
     }
 
