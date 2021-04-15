@@ -7,9 +7,8 @@ namespace AlexSpace
     {
         [SerializeField] private float _buffSpeed = 2f;
         private FirstPersonController _linkController;
-        public void Effect(Collider other)
+        public void Effect()
         {
-            _linkController = other.GetComponent<FirstPersonController>();
             _linkController.m_WalkSpeed += _buffSpeed;
             _linkController.m_RunSpeed += _buffSpeed * 2;
         }
@@ -17,8 +16,9 @@ namespace AlexSpace
         private void OnTriggerEnter(Collider other)
         {
             if (!other.CompareTag("Player")) return;
+            _linkController = other.GetComponent<FirstPersonController>();
             gameObject.SetActive(false);
-            Effect(other);
+            Effect();
         }
     }
 }

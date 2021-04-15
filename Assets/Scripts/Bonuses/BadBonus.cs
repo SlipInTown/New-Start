@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 using UnityStandardAssets.Characters.FirstPerson;
 
@@ -13,6 +12,10 @@ namespace AlexSpace
 
         [SerializeField] private static bool _isState = false;
 
+        [SerializeField] private float _debuffSpeed = -2f;
+
+        private FirstPersonController _linkController;
+
         private void Start()
         {
             _shakeClass = new Shake();
@@ -23,13 +26,11 @@ namespace AlexSpace
             _shakeClass._myEvent += MakeGlobal;
         }
 
-        [SerializeField] private float _debuffSpeed = -2f;
-        private FirstPersonController _linkController;
-        public void Effect(Collider other)
+        
+        public void Effect()
         {
             _isState = !_isState;
             MakeGlobal(_isState);
-            _linkController = other.GetComponent<FirstPersonController>();
             _linkController.m_WalkSpeed += _debuffSpeed;
             _linkController.m_RunSpeed += _debuffSpeed * 2;
         }
@@ -37,8 +38,9 @@ namespace AlexSpace
         private void OnTriggerEnter(Collider other)
         {
             if (!other.CompareTag("Player")) return;
+            _linkController = other.GetComponent<FirstPersonController>();
             gameObject.SetActive(false);
-            Effect(other);
+            Effect();
         }
 
         private void MakeGlobal(bool state)
