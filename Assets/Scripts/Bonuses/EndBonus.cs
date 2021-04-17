@@ -6,7 +6,7 @@ namespace AlexSpace
     {
         public void Effect()
         {
-            BlueCubesController.CallEvent();
+            BlueCubesController.CallEndEvent();
         }
 
         private void OnTriggerEnter(Collider other)

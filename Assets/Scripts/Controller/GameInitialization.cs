@@ -6,8 +6,11 @@ namespace AlexSpace
 {
     public class GameInitialization
     {
-        public GameInitialization(Controllers controllers)
+        public GameInitialization(Controllers controllers, UnityEngine.UI.Button data)
         {
+            controllers.Add(new BlueCubesController());
+            controllers.Add(new RestartSceneController());
+            controllers.Add(new ButtonController(data));
             //Camera camera = Camera.main;
             //var inputInitialization = new InputInitialization();
             //var playerFactory = new PlayerFactory(data.Player);
@@ -19,9 +22,8 @@ namespace AlexSpace
             //controllers.Add(enemyInitialization);
             //controllers.Add(new InputController(inputInitialization.GetInput()));
             //controllers.Add(new MoveController(inputInitialization.GetInput(), playerInitialization.GetPlayer(), data.Player));
-            //controllers.Add(new EnemyMoveController(enemyInitialization.GetMoveEnemies(), playerInitialization.GetPlayer()));
-            //controllers.Add(new CameraController(playerInitialization.GetPlayer(), camera.transform));
-            controllers.Add(new RestartSceneController());
+
+
         }
     }
 }

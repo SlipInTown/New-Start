@@ -2,13 +2,14 @@
 
 namespace AlexSpace
 {
-    public class BlueCubesController
+    public class BlueCubesController : IController
     {
         public static event Action<int> _OnEndTrigger;
 
-        public static void CallEvent(int value = 1)
+        public static void CallEndEvent(int value = 1)
         {
             _OnEndTrigger(value);
         }
+
     }
 }

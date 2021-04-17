@@ -4,26 +4,19 @@ namespace AlexSpace
 {
     public class GameController : MonoBehaviour
     {
-        //[SerializeField] private Data _data;
         private Controllers _controllers;
 
         private void Start()
         {
             _controllers = new Controllers();
-            new GameInitialization(_controllers);
+            var buttonData = FindObjectOfType<UnityEngine.UI.Button>();
+            new GameInitialization(_controllers,buttonData);
             _controllers.Initialization();
         }
         private void Update()
         {
-            var deltaTime = Time.deltaTime;
             _controllers.Execute();
         }
-
-        //private void LateUpdate()
-        //{
-        //    var deltaTime = Time.deltaTime;
-        //    _controllers.LateExecute(deltaTime);
-        //}
 
         private void OnDestroy()
         {

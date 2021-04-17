@@ -10,7 +10,7 @@ namespace AlexSpace
         private readonly int _endValue = 3;
         private readonly string _sceneName = "New Start";
 
-        private void RestartScene()
+        public void RestartScene()
         {
             SceneManager.LoadScene(_sceneName);
         }
