@@ -29,15 +29,11 @@ namespace AlexSpace
             {
                 Directory.CreateDirectory(_path);
             }
-            var savePlayer = new SavedData
-            {
-                _position = player.transform.position,
-                _name = "Alex",
-                _isEnabled = true
-            };
+            var savePlayer = new SavedData();
 
-            Debug.Log("red");
             _data.Save(savePlayer, Path.Combine(_path, _fileName));
+
+            Debug.Log("Сейв успешный");
         }
 
         public void Load(PlayerBase player)
@@ -45,11 +41,19 @@ namespace AlexSpace
             var file = Path.Combine(_path, _fileName);
             if (!File.Exists(file)) return;
             var newPlayer = _data.Load(file);
-            player.transform.position = newPlayer._position;
-            player.name = newPlayer._name;
-            player.gameObject.SetActive(newPlayer._isEnabled);
+            Debug.Log("Лоад успешный");
+            for (int i = 0; i < player.baseBoolBadArray.Length; i++)
+            {
+                player.badCompArray[i].enabled = newPlayer._saveBadArray[i];
+                
+            }
 
-            Debug.Log(player);
+            for (int i = 0; i < player.baseBoolGoodArray.Length; i++)
+            {
+                player.goodCompArray[i].enabled = newPlayer._saveGoodArray[i];
+            }
+
+            Debug.Log("Лоад успешный");
         }
     }
 }

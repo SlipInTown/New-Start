@@ -15,12 +15,11 @@ namespace AlexSpace
         [SerializeField] private float _debuffSpeed = -2f;
 
         private FirstPersonController _linkController;
-
-
+        private BonusArrayController _bonusArray;
+        private int _numberInArray;
 
         private void Start()
         {
-            
             _shakeClass = new Shake();
             if (!_volumeProcess)
             {
@@ -29,7 +28,20 @@ namespace AlexSpace
             _shakeClass._myEvent += MakeGlobal;
         }
 
-        
+        public void GetArray(BonusArrayController bonusArray)
+        {
+            _bonusArray = bonusArray;
+
+            var tempComponent = GetComponent<GoodBonus>();
+            for (int i = 0; i < _bonusArray._badCompArray.Length; i++)
+            {
+                if (tempComponent == _bonusArray._badCompArray[i])
+                {
+                    _numberInArray = i;
+                }
+            }
+        }
+
         public void Effect()
         {
             _isState = !_isState;
@@ -42,6 +54,9 @@ namespace AlexSpace
         {
             if (!other.CompareTag("Player")) return;
             _linkController = other.GetComponent<FirstPersonController>();
+
+            ChangeState(_numberInArray);
+
             gameObject.SetActive(false);
             Effect();
         }
@@ -49,6 +64,11 @@ namespace AlexSpace
         private void MakeGlobal(bool state)
         {
             _volumeProcess.isGlobal = state;
+        }
+
+        private void ChangeState(int i)
+        {
+            _bonusArray._boolBadArray.SetValue(false, i);
         }
     }
 }

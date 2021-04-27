@@ -12,11 +12,26 @@ namespace AlexSpace
         {
             _controllers = new Controllers();
             var tempBad = FindObjectsOfType<BadBonus>();
-            var tempGood = FindObjectsOfType<GoodBonus>();
-            var tempEnd = FindObjectsOfType<EndBonus>();
 
+            bool[] tempBoolBad = new bool[tempBad.Length];
+
+            for (int i = 0; i < tempBad.Length; i++)
+            {
+                tempBoolBad[i] = tempBad[i].isActiveAndEnabled;
+            }
+
+            var tempGood = FindObjectsOfType<GoodBonus>();
+
+            bool[] tempBoolGood = new bool[tempGood.Length];
+
+            for (int i = 0; i < tempBoolGood.Length; i++)
+            {
+                tempBoolGood[i] = tempGood[i].isActiveAndEnabled;
+            }
+
+            var tempBase = new PlayerBase(tempBoolBad, tempBoolGood, tempBad, tempGood);
             //var buttonData = FindObjectOfType<UnityEngine.UI.Button>();
-            new GameInitialization(_controllers,tempBad,tempGood,tempEnd);
+            new GameInitialization(_controllers, tempBase);
             _controllers.Initialization();
 
             

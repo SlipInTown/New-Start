@@ -4,38 +4,41 @@ using UnityEngine;
 
 namespace AlexSpace
 {
-    public class BonusArrayController : IController, IExecute, IInitialization
+    public class BonusArrayController : IController,  IInitialization
     {
-        public BadBonus[] _badArray;
+        public BadBonus[] _badCompArray;
 
-        public bool[] _helpBadArray;
+        public bool[] _boolBadArray;
 
-        public GoodBonus[] _goodArray;
+        public GoodBonus[] _goodCompArray;
 
-        public bool[] _helpGoodArray;
+        public bool[] _boolGoodArray;
 
-        public EndBonus[] _endArray;
+        public PlayerBase _playerBase;
 
-        public bool[] _helpEndArray;
-
-        public BonusArrayController(BadBonus[] badtemp, GoodBonus[] goodtemp, EndBonus[] endtemp)
+        public BonusArrayController(BadBonus[] badtemp, GoodBonus[] goodtemp)
         {
-            _badArray = badtemp;
+            _badCompArray = badtemp;
 
-            _helpBadArray = new bool [badtemp.Length];
+            _boolBadArray = new bool [badtemp.Length];
 
-            _goodArray = goodtemp;
+            for (int i = 0; i < _boolBadArray.Length; i++)
+            {
+                _boolBadArray.SetValue(_badCompArray[i].isActiveAndEnabled, i);
+                _badCompArray[i].GetArray(this);
+            }
 
-            _helpGoodArray = new bool[goodtemp.Length];
+            _goodCompArray = goodtemp;
 
-            _endArray = endtemp;
+            _boolGoodArray = new bool[goodtemp.Length];
 
-            _helpEndArray = new bool[endtemp.Length];
-        }
+            for (int i = 0; i < _boolGoodArray.Length; i++)
+            {
+                _boolGoodArray.SetValue(_goodCompArray[i].isActiveAndEnabled, i);
+                _goodCompArray[i].GetArray(this);
+            }
 
-        public void Execute()
-        {
-            
+            _playerBase = new PlayerBase(_boolBadArray, _boolGoodArray, _badCompArray, _goodCompArray);
         }
 
         public void Initialization()
