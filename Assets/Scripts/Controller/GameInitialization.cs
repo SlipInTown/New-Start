@@ -6,11 +6,12 @@ namespace AlexSpace
 {
     public class GameInitialization
     {
-        public GameInitialization(Controllers controllers, UnityEngine.UI.Button data)
+        public GameInitialization(Controllers controllers, BadBonus[] badtemp, GoodBonus[] goodtemp, EndBonus[] endtemp)
         {
             controllers.Add(new BlueCubesController());
             controllers.Add(new RestartSceneController());
-            controllers.Add(new ButtonController(data));
+            controllers.Add(new BonusArrayController(badtemp, goodtemp, endtemp));
+            //controllers.Add(new ButtonController());
             //Camera camera = Camera.main;
             //var inputInitialization = new InputInitialization();
             //var playerFactory = new PlayerFactory(data.Player);

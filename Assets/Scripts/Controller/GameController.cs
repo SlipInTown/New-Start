@@ -6,12 +6,20 @@ namespace AlexSpace
     {
         private Controllers _controllers;
 
+
+
         private void Start()
         {
             _controllers = new Controllers();
-            var buttonData = FindObjectOfType<UnityEngine.UI.Button>();
-            new GameInitialization(_controllers,buttonData);
+            var tempBad = FindObjectsOfType<BadBonus>();
+            var tempGood = FindObjectsOfType<GoodBonus>();
+            var tempEnd = FindObjectsOfType<EndBonus>();
+
+            //var buttonData = FindObjectOfType<UnityEngine.UI.Button>();
+            new GameInitialization(_controllers,tempBad,tempGood,tempEnd);
             _controllers.Initialization();
+
+            
         }
         private void Update()
         {

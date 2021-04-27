@@ -16,8 +16,11 @@ namespace AlexSpace
 
         private FirstPersonController _linkController;
 
+
+
         private void Start()
         {
+            
             _shakeClass = new Shake();
             if (!_volumeProcess)
             {
