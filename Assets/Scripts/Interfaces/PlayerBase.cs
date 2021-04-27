@@ -1,6 +1,6 @@
 ﻿namespace AlexSpace
 {
-    public class PlayerBase
+    public class PlayerBase 
     {
         public bool[] baseBoolBadArray;
 

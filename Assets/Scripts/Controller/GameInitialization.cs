@@ -8,10 +8,15 @@ namespace AlexSpace
     {
         public GameInitialization(Controllers controllers, PlayerBase player)
         {
+            var tempData = new SavedData();
+
+            var arrayController = new BonusArrayController(player, tempData);
+
             controllers.Add(new BlueCubesController());
             controllers.Add(new RestartSceneController());
-            controllers.Add(new BonusArrayController(player.badCompArray, player.goodCompArray));
-            controllers.Add(new InputController(player));
+            controllers.Add(tempData);
+            controllers.Add(arrayController);
+            controllers.Add(new InputController(arrayController));
             //controllers.Add(new ButtonController());
             //Camera camera = Camera.main;
             //var inputInitialization = new InputInitialization();

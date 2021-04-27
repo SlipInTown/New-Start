@@ -4,12 +4,12 @@ namespace AlexSpace
 {
     public sealed class InputController : IExecute, IController
     {
-        private readonly PlayerBase _playerBase;
+        private readonly BonusArrayController _playerBase;
         private readonly ISaveDataRepository _saveDataRepository;
         private readonly KeyCode _saveKey = KeyCode.C;
         private readonly KeyCode _LoadKey = KeyCode.L;
 
-        public InputController(PlayerBase player)
+        public InputController(BonusArrayController player)
         {
             _playerBase = player;
 

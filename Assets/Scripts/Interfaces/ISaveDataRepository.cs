@@ -2,8 +2,8 @@
 {
     public interface ISaveDataRepository
     {
-        void Save(PlayerBase player);
+        void Save(BonusArrayController player);
 
-        void Load(PlayerBase player);
+        void Load(BonusArrayController player);
     }
 }

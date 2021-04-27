@@ -16,11 +16,15 @@ namespace AlexSpace
 
         public PlayerBase _playerBase;
 
-        public BonusArrayController(BadBonus[] badtemp, GoodBonus[] goodtemp)
-        {
-            _badCompArray = badtemp;
+        public SavedData localData;
 
-            _boolBadArray = new bool [badtemp.Length];
+        public BonusArrayController(PlayerBase playerBase, SavedData data)
+        {
+            localData = data;
+
+            _badCompArray = playerBase.badCompArray;
+
+            _boolBadArray = new bool [_badCompArray.Length];
 
             for (int i = 0; i < _boolBadArray.Length; i++)
             {
@@ -28,17 +32,15 @@ namespace AlexSpace
                 _badCompArray[i].GetArray(this);
             }
 
-            _goodCompArray = goodtemp;
+            _goodCompArray = playerBase.goodCompArray;
 
-            _boolGoodArray = new bool[goodtemp.Length];
+            _boolGoodArray = new bool[_goodCompArray.Length];
 
             for (int i = 0; i < _boolGoodArray.Length; i++)
             {
                 _boolGoodArray.SetValue(_goodCompArray[i].isActiveAndEnabled, i);
                 _goodCompArray[i].GetArray(this);
             }
-
-            _playerBase = new PlayerBase(_boolBadArray, _boolGoodArray, _badCompArray, _goodCompArray);
         }
 
         public void Initialization()

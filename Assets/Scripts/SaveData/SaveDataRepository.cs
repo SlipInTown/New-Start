@@ -23,37 +23,39 @@ namespace AlexSpace
             _path = Path.Combine(Application.dataPath, _folderName);
         }
         
-        public void Save(PlayerBase player)
+        public void Save(BonusArrayController player)
         {
             if (!Directory.Exists(Path.Combine(_path)))
             {
                 Directory.CreateDirectory(_path);
             }
-            var savePlayer = new SavedData();
+            var savePlayer = new SavedData
+            {
+                _saveBadArray = player._boolBadArray,
+                _saveGoodArray = player._boolGoodArray
+            };
 
+            Debug.Log(savePlayer.ToString());
             _data.Save(savePlayer, Path.Combine(_path, _fileName));
-
-            Debug.Log("Сейв успешный");
         }
 
-        public void Load(PlayerBase player)
+        public void Load(BonusArrayController player)
         {
             var file = Path.Combine(_path, _fileName);
             if (!File.Exists(file)) return;
             var newPlayer = _data.Load(file);
-            Debug.Log("Лоад успешный");
-            for (int i = 0; i < player.baseBoolBadArray.Length; i++)
+
+
+            for (int i = 0; i < player._boolBadArray.Length; i++)
             {
-                player.badCompArray[i].enabled = newPlayer._saveBadArray[i];
+                player._badCompArray[i].enabled = newPlayer._saveBadArray[i];
                 
             }
 
-            for (int i = 0; i < player.baseBoolGoodArray.Length; i++)
+            for (int i = 0; i < player._boolGoodArray.Length; i++)
             {
-                player.goodCompArray[i].enabled = newPlayer._saveGoodArray[i];
+                player._goodCompArray[i].enabled = newPlayer._saveGoodArray[i];
             }
-
-            Debug.Log("Лоад успешный");
         }
     }
 }
